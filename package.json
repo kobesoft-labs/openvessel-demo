@@ -1,0 +1,25 @@
+{
+  "name": "openvessel-demo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "OpenVessel demo: an Astro site edited and previewed live, with Node.js running in the browser tab.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "serve": "node serve.mjs",
+    "dev": "node build.mjs && node serve.mjs"
+  },
+  "devDependencies": {
+    "@codemirror/lang-css": "^6.3.1",
+    "@codemirror/lang-html": "^6.4.9",
+    "@codemirror/lang-javascript": "^6.2.4",
+    "@codemirror/lang-json": "^6.0.2",
+    "@codemirror/lang-markdown": "^6.5.2",
+    "@codemirror/theme-one-dark": "^6.1.3",
+    "@xterm/addon-fit": "^0.11.0",
+    "@xterm/xterm": "^6.0.0",
+    "codemirror": "^6.0.2",
+    "esbuild": "^0.25.0"
+  }
+}

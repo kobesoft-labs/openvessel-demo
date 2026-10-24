@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OpenVessel demo — Node.js and Astro in your browser tab</title>
+<meta name="description" content="Edit an Astro site and watch it rebuild live. Node.js, npm and Astro all run inside this browser tab with OpenVessel.">
+<link rel="icon" href="favicon.svg">
+<link rel="stylesheet" href="xterm.css">
+<link rel="stylesheet" href="style.css">
+<script>
+  // GitHub Pages sends no isolation headers: let coi-sw.js add them, then reload once
+  if (!crossOriginIsolated && 'serviceWorker' in navigator && !sessionStorage.getItem('ov-coi-reload')) {
+    navigator.serviceWorker.register('coi-sw.js').then(() => navigator.serviceWorker.ready).then(() => {
+      sessionStorage.setItem('ov-coi-reload', '1');
+      location.reload();
+    });
+  } else sessionStorage.removeItem('ov-coi-reload');
+</script>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 20h24l-3 6H7z" fill="currentColor"/><path d="M16 4v14M16 6l7 10h-7" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+    <strong>OpenVessel</strong><span class="tag" data-i18n="tag">demo</span>
+  </div>
+  <p class="lead" data-i18n="lead">Node.js, npm and Astro are running <b>inside this tab</b>. Edit a file — the site on the right rebuilds live. No server does the work.</p>
+  <nav>
+    <span class="pill" id="node-ver">Node.js</span>
+    <a href="https://github.com/kobesoft-labs/openvessel" target="_blank" rel="noopener">GitHub</a>
+  </nav>
+</header>
+
+<main id="workspace">
+  <aside id="explorer">
+    <div class="pane-title"><span data-i18n="files">Files</span><button id="new-file" title="New file">＋</button></div>
+    <ul id="tree" role="tree"></ul>
+    <div class="hint" data-i18n="hint-files">Try <b>src/posts/hello.md</b> — change the title or add a paragraph.</div>
+  </aside>
+  <section id="editor-pane">
+    <div class="pane-title"><span id="file-name">—</span><span id="save-state"></span></div>
+    <div id="editor"></div>
+  </section>
+  <section id="preview-pane">
+    <div class="pane-title"><span class="dot" id="server-dot"></span><span id="preview-addr">localhost:4321</span><button id="reload" title="Reload">↻</button></div>
+    <div id="preview"><div id="boot"></div></div>
+  </section>
+</main>
+
+<section id="bottom">
+  <div class="tabs" role="tablist">
+    <button role="tab" data-tab="terminal" class="active" data-i18n="t-terminal">Terminal</button>
+    <button role="tab" data-tab="server" data-i18n="t-server">astro dev</button>
+    <button role="tab" data-tab="how" data-i18n="t-how">How it works</button>
+    <span class="spacer"></span>
+    <span class="chips">
+      <button class="chip" data-cmd="ls src">ls src</button>
+      <button class="chip" data-cmd="cat src/posts/hello.md">cat hello.md</button>
+      <button class="chip" data-cmd="node -e &quot;console.log(process.version, process.platform, require('os').cpus().length + ' cpus')&quot;">node -e</button>
+      <button class="chip" data-cmd="npx astro build">astro build</button>
+      <button class="chip" data-cmd="ps">ps</button>
+    </span>
+  </div>
+  <div class="tab-body" id="tab-terminal"><div id="term"></div></div>
+  <div class="tab-body" id="tab-server" hidden><div id="server-term"></div></div>
+  <div class="tab-body" id="tab-how" hidden>
+    <div id="flow">
+      <div class="stage" id="st-editor"><b data-i18n="s-editor">Editor</b><small data-i18n="s-editor-d">this page</small></div>
+      <div class="arrow">→</div>
+      <div class="stage" id="st-vfs"><b data-i18n="s-vfs">Kernel</b><small data-i18n="s-vfs-d">in-memory file system · Web Worker</small></div>
+      <div class="arrow">→</div>
+      <div class="stage" id="st-node"><b>Node.js + Astro</b><small data-i18n="s-node-d">astro dev · its own Web Worker</small></div>
+      <div class="arrow">→</div>
+      <div class="stage" id="st-sw"><b data-i18n="s-sw">Virtual port 4321</b><small data-i18n="s-sw-d">service worker · no real network</small></div>
+      <div class="arrow">→</div>
+      <div class="stage" id="st-preview"><b data-i18n="s-preview">Preview</b><small data-i18n="s-preview-d">iframe on the right</small></div>
+    </div>
+    <ol id="activity"></ol>
+  </div>
+</section>
+<script type="module" src="app.js"></script>
+</body>
+</html>
