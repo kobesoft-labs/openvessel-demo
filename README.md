@@ -27,8 +27,9 @@ for their folders (`runtime/`, `preview/`).
 
 ## Deploying to GitHub Pages
 
-`npm run build` writes a static site to `site/`. Publish that folder (for example with
-`actions/deploy-pages`). Every path is relative, so it works under `/openvessel-demo/` or any other path.
+`npm run build` writes a static site to `site/`; `npm run deploy` builds it and pushes it to the
+`gh-pages` branch (set GitHub Pages to serve that branch). Every path is relative, so it works under
+`/openvessel-demo/` or any other path.
 
 On GitHub Pages the page, OpenVessel's runtime and the preview share one origin. That is fine for a
 demo you edit yourself; for running untrusted code, serve them from three origins as described in
