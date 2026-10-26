@@ -52,7 +52,7 @@ const T = ja
       saved: '保存', bytes: 'バイト', rebuilt: '作り直して表示', packages: 'パッケージ',
       newFile: '新しいファイルのパス（例: src/posts/my-post.md）',
       failed: '起動に失敗しました',
-      unsupported: 'このブラウザでは動きません（SharedArrayBuffer が必要です。Chrome・Edge などでお試しください）',
+      unsupported: 'このブラウザでは動きません（SharedArrayBuffer が必要です。Chrome・Edge・Firefox の最新版でお試しください）',
     }
   : {
       tag: 'demo',
@@ -80,7 +80,7 @@ const T = ja
       saved: 'saved', bytes: 'bytes', rebuilt: 'rebuilt and shown', packages: 'packages',
       newFile: 'Path of the new file (e.g. src/posts/my-post.md)',
       failed: 'Failed to start',
-      unsupported: "This browser can't run it (SharedArrayBuffer is required — try Chrome or Edge).",
+      unsupported: "This browser can't run it (SharedArrayBuffer is required — try a current Chrome, Edge or Firefox).",
     };
 for (const el of document.querySelectorAll<HTMLElement>('[data-i18n]')) {
   const v = (T as Record<string, string>)[el.dataset.i18n!];
@@ -298,18 +298,12 @@ async function main() {
     runtimeUrl: RUNTIME,
     previewUrl: PREVIEW,
     network: { mode: 'allowlist', presets: ['npm', 'fonts', 'cdn'] },
-    onPermissionRequest: (req) => {
-      log(`🚫 ${req.host} (network policy)`);
-      return 'deny';
-    },
     locale: ja ? 'ja' : 'en',
   });
   (window as any).vessel = vessel;
   step(0, 'done');
 
   step(1, 'run');
-  // run processes on OpenVessel's ported Node.js runtime
-  await vessel.mount({ node: 'port' }, { path: '/etc/openvessel' });
   await vessel.mount(projectFor(navigator.language), { path: APP });
   await renderTree();
   await open(FIRST_FILE);
