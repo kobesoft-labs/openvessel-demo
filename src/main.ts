@@ -251,7 +251,7 @@ function watchPreview(frame: HTMLIFrameElement) {
 // ---------------------------------------------------------------------------
 // file explorer
 
-const SKIP = new Set(['node_modules', '.astro', 'dist', '.git']);
+const SKIP = new Set(['node_modules', '.astro', 'dist', '.git', 'package-lock.json']);
 async function listTree(dir = '', depth = 0): Promise<{ path: string; name: string; dir: boolean; depth: number }[]> {
   const entries: { name: string; type: string }[] = await vessel.fs.readdir(dir ? `${APP}/${dir}` : APP, { withFileTypes: true });
   entries.sort((a, b) => Number(b.type === 'dir') - Number(a.type === 'dir') || a.name.localeCompare(b.name));

@@ -23,7 +23,7 @@ await build({
   sourcemap: true,
   outdir: out,
   alias: { openvessel: join(ov, 'src/host/index.ts') },
-  loader: { '.css': 'css' },
+  loader: { '.css': 'css', '.txt': 'text' },
 });
 for (const f of ['index.html', 'style.css', 'coi-sw.js', 'favicon.svg']) cpSync(join(root, 'public', f), join(out, f));
 cpSync(join(root, 'node_modules/@xterm/xterm/css/xterm.css'), join(out, 'xterm.css'));

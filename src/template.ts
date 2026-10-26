@@ -1,7 +1,11 @@
 // The Astro site the demo starts with: an ordinary project (OpenVessel's preview maps it to the
 // path the demo is served under).
 
+import LOCKFILE from './project-lock.txt';
+
 export const PROJECT: Record<string, string> = {
+  'package-lock.json': LOCKFILE,
+
   'package.json': JSON.stringify(
     {
       name: 'hello-openvessel',
@@ -9,7 +13,11 @@ export const PROJECT: Record<string, string> = {
       version: '0.0.1',
       private: true,
       scripts: { dev: 'astro dev', build: 'astro build', preview: 'astro preview' },
-      dependencies: { astro: '^7.4.2' },
+      // Everything here is pinned (the lockfile below pins the rest), so the demo installs the same tree it was
+      // tested with. @napi-rs/wasm-runtime 1.2.6 needs emnapi 2.0.0-beta.2, but rolldown's WebAssembly build pins
+      // emnapi 2.0.0-alpha.5: with 1.2.6 rolldown can't load.
+      dependencies: { astro: '7.4.2' },
+      overrides: { '@napi-rs/wasm-runtime': '1.2.5' },
     },
     null,
     2,
