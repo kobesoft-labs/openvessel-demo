@@ -1,0 +1,85 @@
+{
+  "@pagefind/linux-x64": {
+    "range": "^1.0.0",
+    "file": "pagefind-1.5.2.tgz",
+    "integrity": "sha512-SlSl+Tdqt0RpNPSrGaP4YZbRnkUlOHyZC3vo/h7fpGg1rRNqHidjWs8xedFeN67NmdXSettOtG/Fql69ekVxeg==",
+    "pkg": {
+      "name": "@openvessel/pagefind-wasi",
+      "version": "1.5.2",
+      "description": "Pagefind's indexer as wasm32-wasi (OpenVessel)",
+      "license": "MIT"
+    }
+  },
+  "cn-font-split": {
+    "range": "^7.0.0",
+    "file": "cn-font-split-7.4.3.tgz",
+    "integrity": "sha512-McNz6yh2FS/kDVnTe61xydscauuzvLgcRyBkgLcW5tjc3hCc1FMnJ/WH8g//x7gluAVRKvndrF9dg0kM5YPI7Q==",
+    "pkg": {
+      "name": "@openvessel/cn-font-split-wasi",
+      "version": "7.4.3",
+      "description": "划时代的字体切割工具，CJK与任何字符！支持 otf、ttf、woff2 字体多线程切割，完美地细颗粒度地进行包大小控制。A revolutionary font subetter that supports CJK and any characters! It enables multi-threaded subset of otf, ttf, and woff2 fonts, allowing for precise control over package size.",
+      "main": "./dist/auto.js",
+      "module": "./dist/auto.mjs",
+      "browser": "./dist/wasm/index.mjs",
+      "bin": {
+        "cn-font-split": "dist/cli.js"
+      },
+      "files": [
+        "dist"
+      ],
+      "publishConfig": {
+        "registry": "https://registry.npmjs.org/",
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/KonghaYao/cn-font-split.git#ts"
+      },
+      "homepage": "https://chinese-font.netlify.app/",
+      "keywords": [
+        "font",
+        "converter",
+        "performance",
+        "wasm",
+        "woff2",
+        "ttf",
+        "otf",
+        "opentype-fonts",
+        "font-subsetter",
+        "font-subset",
+        "cjk"
+      ],
+      "author": "KonghaYao<dongzhongzhidong@qq.com>",
+      "license": "Apache-2.0",
+      "dependencies": {
+        "buffer": "^6.0.3",
+        "commander": "^12.1.0",
+        "fs-extra": "^11.2.0",
+        "google-protobuf": "^3.21.4",
+        "proto-to-cli": "1.2.1",
+        "set-value": "^4.1.0"
+      },
+      "scripts": {
+        "update-proto": "sh ./scripts/build_proto_ts.sh && proto-to-cli -i ../../crates/proto/src/index.proto -m InputTemplate -o ./src/gen/proto.ts && sh scripts/build_proto_ts.sh",
+        "build": "pnpm update-proto && vite build && vite build -c vite.config.wasm.mts",
+        "prepublish": "pnpm build"
+      }
+    }
+  },
+  "@resvg/resvg-js": {
+    "range": "^2.0.0",
+    "file": "resvg-js-2.6.2.tgz",
+    "integrity": "sha512-t93EFcJg1QNkD7n5M/LeC2LV76ATj3LiPzLcVB0hUgLw8keM+lhQKw+f4ZHjfzPaS2Qg7E3NRFsdEuMmtv4XOw==",
+    "pkg": {
+      "name": "@openvessel/resvg-js-wasm",
+      "version": "2.6.2",
+      "description": "@resvg/resvg-js on @resvg/resvg-wasm (OpenVessel)",
+      "license": "MPL-2.0",
+      "main": "index.js",
+      "types": "index.d.ts",
+      "dependencies": {
+        "@resvg/resvg-wasm": "2.6.2"
+      }
+    }
+  }
+}
